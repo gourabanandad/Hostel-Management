@@ -23,12 +23,15 @@ function NavBar() {
   useEffect(() => {
     if (isLoaded && user?.primaryEmailAddress?.emailAddress) {
       const email = user.primaryEmailAddress.emailAddress;
-      if (isAdminEmail(email) && pathname !== "/admin") {
+      if (isAdminEmail(email)) {
         setIsAdmin(true);
-        router.push("/admin");
+        // Redirect only from specific starting pages
+        if (pathname === "/" || pathname === "/sign-in" || pathname === "/sign-up") {
+          router.push("/admin");
+        }
       }
     }
-  }, [isLoaded, user, pathname, router]);
+  }, [isLoaded, user, router, pathname]);
 
   return (
     <header className="bg-blue-50 border-b border-blue-100">
@@ -46,28 +49,40 @@ function NavBar() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link 
-              href="/" 
-              className={`px-1 py-2 font-medium transition-colors ${pathname === "/" ? "text-blue-600 border-b-2 border-blue-500" : "text-blue-800 hover:text-blue-600"}`}
+            <Link
+              href="/"
+              className={`px-1 py-2 font-medium transition-colors ${
+                pathname === "/" ? "text-blue-600 border-b-2 border-blue-500" : "text-blue-800 hover:text-blue-600"
+              }`}
             >
               Home
             </Link>
             <Link
               href="/hosteller/mealVoting"
-              className={`px-1 py-2 font-medium transition-colors ${pathname.startsWith("/hosteller/mealVoting") ? "text-blue-600 border-b-2 border-blue-500" : "text-blue-800 hover:text-blue-600"}`}
+              className={`px-1 py-2 font-medium transition-colors ${
+                pathname.startsWith("/hosteller/mealVoting")
+                  ? "text-blue-600 border-b-2 border-blue-500"
+                  : "text-blue-800 hover:text-blue-600"
+              }`}
             >
               Meal Voting
             </Link>
             <Link
               href="/hosteller/complains"
-              className={`px-1 py-2 font-medium transition-colors ${pathname.startsWith("/hosteller/complains") ? "text-blue-600 border-b-2 border-blue-500" : "text-blue-800 hover:text-blue-600"}`}
+              className={`px-1 py-2 font-medium transition-colors ${
+                pathname.startsWith("/hosteller/complains")
+                  ? "text-blue-600 border-b-2 border-blue-500"
+                  : "text-blue-800 hover:text-blue-600"
+              }`}
             >
               Complaints
             </Link>
             {isAdmin && (
               <Link
                 href="/admin"
-                className={`px-1 py-2 font-medium transition-colors ${pathname === "/admin" ? "text-blue-600 border-b-2 border-blue-500" : "text-blue-800 hover:text-blue-600"}`}
+                className={`px-1 py-2 font-medium transition-colors ${
+                  pathname === "/admin" ? "text-blue-600 border-b-2 border-blue-500" : "text-blue-800 hover:text-blue-600"
+                }`}
               >
                 Admin Panel
               </Link>
@@ -77,26 +92,27 @@ function NavBar() {
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
             <SignedOut>
-              <SignInButton>
+              <SignInButton afterSignInUrl="/">
                 <button className="px-4 py-2 rounded-lg font-medium text-blue-800 hover:bg-blue-100 transition-colors">
                   Log In
                 </button>
               </SignInButton>
-              <SignUpButton>
+              <Link href={"/Register"}>
+              
                 <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-colors shadow-md hover:shadow-lg">
                   Join Us
                 </button>
-              </SignUpButton>
+                </Link>
             </SignedOut>
             <SignedIn>
               <div className="flex items-center space-x-4">
-                <UserButton 
-                  appearance={{ 
-                    elements: { 
+                <UserButton
+                  appearance={{
+                    elements: {
                       avatarBox: "w-9 h-9 border-2 border-blue-200",
-                      userButtonPopoverCard: "shadow-xl border border-blue-100"
-                    } 
-                  }} 
+                      userButtonPopoverCard: "shadow-xl border border-blue-100",
+                    },
+                  }}
                 />
                 <SignOutButton>
                   <button className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 rounded-lg font-medium hover:bg-blue-200 transition-colors border border-blue-200">
