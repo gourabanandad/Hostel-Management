@@ -1,63 +1,58 @@
-# Smart Hostel Management System
+# 🏠 Smart Hostel Management System
 
-A full-stack digital platform designed to streamline hostel operations for colleges. This system focuses on simplifying meal confirmations, improving communication, and tracking student presence, with scalability for future modules like complaints and leave management.
+![HostelHub Banner](https://github.com/gourabanandad/Hostel-Management/blob/main/image.png)  
 
-## Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Installation](#installation)
-- [Deployment](#deployment)
-- [Future Enhancements](#future-enhancements)
-- [Screenshots](#screenshots)
-- [License](#license)
+
+A **full-stack digital platform** designed to revolutionize hostel operations for colleges. Streamline meal confirmations, automate notices, and track student presence with scalability for future modules.
 
 ---
 
-## Features
+## ✨ Key Features
 
-### Student App
-- *Student Registration:* Collect details like Name, Semester, Roll Number, Room Number, Email, and Phone.
-- *Meal Confirmation:* Daily prompts for confirming lunch and dinner for the next day (auto-triggered every evening).
-- *Notice Board:* View all hostel-wide notices.
-- *Login System:* Email or OTP-based authentication (bonus feature).
-- *Reminders & Notifications:* Push/email notifications to remind meal confirmations.
-- *Offline Support:* Mobile responsiveness and offline caching (bonus).
+### 📱 Student App
+| Feature                | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| **Registration**       | Name, Semester, Roll No., Room No., Contact, Email                         |
+| **Meal Confirmation**  | Daily prompts (Lunch/Dinner) with 9PM cut-off                              |
+| **Notice Board**       | Real-time updates with PDF/image support                                    |
+| **Auth**               | Email + OTP login (Firebase)                                                |
+| **Offline Support**    | Cache notices & submit confirmations offline                                |
 
-### Admin Panel (Hostel Committee)
-- *Dashboard Overview:* View statistics and meal confirmation data.
-- *Manage Registrations:* Access and manage all registered students.
-- *Meal Confirmation Reports:* Filter students by confirmation status.
-- *Notice Publishing:* Post and manage notices.
-- *Student Directory:* Filter students by room number, view presence (present/absent).
+### 🖥️ Admin Panel
+| Feature                | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| **Dashboard**          | Visualize meal stats, confirmations, and student presence                  |
+| **Student Directory**  | Filter by room/semester, mark attendance                                   |
+| **Notice Management**  | Publish/archive notices with rich text support                              |
+| **Data Export**        | Export meal reports to CSV/PDF                                             |
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
-- *Student App:* React / Flutter / React Native
-- *Admin Panel:* React + TailwindCSS
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter)
 
 ### Backend
-- *Server:* Node.js / Express.js or Django
-- *Auth:* Firebase Auth / Custom OTP Auth
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase)
 
 ### Database
-- *Primary Storage:* PostgreSQL / MongoDB
-- *Email/Push Notifications:* EmailJS / Firebase Cloud Messaging (FCM)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb)
 
 ---
 
-## Architecture
+## 🏗️ System Architecture
 
-```plaintext
-Client (Student + Admin App)
-       |
-       | REST API
-       |
-Backend Server (Express/Django)
-       |
-       | Database Queries
-       |
-   Database (SQL/NoSQL)
+```mermaid
+graph TD
+    A[Student Mobile App] -->|REST API| B[Backend Server]
+    C[Admin Web Panel] -->|REST API| B
+    B --> D[(PostgreSQL)]
+    B --> E[Firebase Auth]
+    B --> F[Redis Cache]
+    G[SMTP Server] -->|Notifications| A
